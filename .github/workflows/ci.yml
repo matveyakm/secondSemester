@@ -1,0 +1,45 @@
+name: Build and Test
+on: [push, pull_request]
+
+jobs:
+  build-ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '9.x'
+        
+    - name: Build
+      run: |
+        for f in $(find . -name "*.sln"); do
+          if [[ "$f" != *"CalculatorOnForms2"* ]]; then
+            dotnet build "$f"
+          fi
+        done
+
+    - name: Run tests
+      run: |
+        for f in $(find . -name "*.sln"); do
+          if [[ "$f" != *"CalculatorOnForms2"* ]]; then
+            dotnet test "$f"
+          fi
+        done
+
+  build-windows:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '9.x'
+
+    - name: Build and Test
+      shell: pwsh
+      run: |
+        Get-ChildItem -Recurse -Filter *.sln | ForEach-Object {
+          dotnet build $_.FullName
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          dotnet test $_.FullName --no-build
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+        }
