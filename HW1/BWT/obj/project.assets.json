@@ -65,11 +65,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/matveyakm/Documents/SecondSemester/HW1/BWT/HW1.csproj",
-      "projectName": "HW1",
-      "projectPath": "/Users/matveyakm/Documents/SecondSemester/HW1/BWT/HW1.csproj",
+      "projectUniqueName": "/Users/matveyakm/Documents/secondSemester/HW1/BWT/BWT.csproj",
+      "projectName": "BWT",
+      "projectPath": "/Users/matveyakm/Documents/secondSemester/HW1/BWT/BWT.csproj",
       "packagesPath": "/Users/matveyakm/.nuget/packages/",
-      "outputPath": "/Users/matveyakm/Documents/SecondSemester/HW1/BWT/obj/",
+      "outputPath": "/Users/matveyakm/Documents/secondSemester/HW1/BWT/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/matveyakm/.nuget/NuGet/NuGet.Config"

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "tdXMkudI3+Q=",
+  "dgSpecHash": "tNJ3GZSJA+E=",
   "success": true,
-  "projectFilePath": "/Users/matveyakm/Documents/SecondSemester/HW1/BWT/HW1.csproj",
+  "projectFilePath": "/Users/matveyakm/Documents/secondSemester/HW1/BWT/BWT.csproj",
   "expectedPackageFiles": [
     "/Users/matveyakm/.nuget/packages/stylecop.analyzers/1.2.0-beta.556/stylecop.analyzers.1.2.0-beta.556.nupkg.sha512",
     "/Users/matveyakm/.nuget/packages/stylecop.analyzers.unstable/1.2.0.556/stylecop.analyzers.unstable.1.2.0.556.nupkg.sha512"

@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = HW1
-build_property.ProjectDir = /Users/matveyakm/Documents/SecondSemester/HW1/BWT/
+build_property.ProjectDir = /Users/matveyakm/Documents/secondSemester/HW1/BWT/
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 

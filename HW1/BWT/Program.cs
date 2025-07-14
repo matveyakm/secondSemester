@@ -1,15 +1,9 @@
-namespace BWT;
+﻿namespace BWT;
 
 internal class Program
 {
     private static void Main(string[] args)
     {
-        if (!Test.TestsComplete())
-        {
-            Console.WriteLine("Something went wrong.");
-            return;
-        }
-
         if (args.Length == 2)
         {
             Console.WriteLine("Processing with parameters obtained from run settings.");
