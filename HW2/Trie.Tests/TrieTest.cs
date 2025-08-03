@@ -1,6 +1,13 @@
+// <copyright file="TrieTest.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
 using Trie;
 
-public class BorTests
+/// <summary>
+/// tests for trie.
+/// </summary>
+public class TrieTest
 {
     [Test]
     public void TrieAddNewWordsShouldReturnTrue()
@@ -22,7 +29,8 @@ public class BorTests
 
         List<string> words = ["word", "test", "mum", "word_2"];
 
-        foreach (var word in words) {
+        foreach (var word in words)
+        {
             bor.Add(word);
         }
 
@@ -34,7 +42,7 @@ public class BorTests
     {
         var bor = new Bor();
 
-        string word = "Word";
+        const string word = "Word";
 
         bor.Add(word);
 
@@ -46,7 +54,7 @@ public class BorTests
     {
         var bor = new Bor();
 
-        string word = "test";
+        const string word = "test";
 
         bor.Add(word);
 
@@ -62,14 +70,15 @@ public class BorTests
 
         List<string> words = ["word", "test", "Test", "word2"];
 
-        foreach (var word in words) {
+        foreach (var word in words)
+        {
             bor.Add(word);
         }
 
         bor.Remove(words[0]);
         bor.Remove(words[1]);
 
-        int expextedResult = words.Count - 2;
+        var expextedResult = words.Count - 2;
 
         Assert.That(bor.WordCount, Is.EqualTo(expextedResult));
     }
@@ -79,7 +88,7 @@ public class BorTests
     {
         var bor = new Bor();
 
-        int expextedResult = 0;
+        const int expextedResult = 0;
 
         Assert.That(bor.WordCount, Is.EqualTo(expextedResult));
     }
@@ -89,7 +98,7 @@ public class BorTests
     {
         var bor = new Bor();
 
-        string word = "Word";
+        const string word = "Word";
 
         bor.Add(word);
 
@@ -101,7 +110,7 @@ public class BorTests
     {
         var bor = new Bor();
 
-        string word = "test";
+        const string word = "test";
 
         Assert.That(bor.Contains(word), Is.False);
     }
@@ -111,7 +120,7 @@ public class BorTests
     {
         var bor = new Bor();
 
-        string word = "Word";
+        const string word = "Word";
 
         bor.Add(word);
 
@@ -125,7 +134,7 @@ public class BorTests
     {
         var bor = new Bor();
 
-        string word = "Word_123";
+        const string word = "Word_123";
 
         bor.Add(word);
 
@@ -139,7 +148,7 @@ public class BorTests
     {
         var bor = new Bor();
 
-        string word = "LLM";
+        const string word = "LLM";
 
         Assert.That(bor.Remove(word), Is.False);
     }

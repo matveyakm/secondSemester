@@ -1,4 +1,4 @@
-﻿// <copyright file="Bor.cs" company="PlaceholderCompany">
+﻿// <copyright file="Trie.cs" company="PlaceholderCompany">
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
@@ -9,7 +9,7 @@ namespace Trie;
 /// </summary>
 public class Bor
 {
-    private readonly TrieNode _root = new();
+    private readonly TrieNode root = new();
 
     /// <summary>
     /// Gets or sets amount of added words in trie.
@@ -28,7 +28,7 @@ public class Bor
             return false;
         }
 
-        var node = _root;
+        var node = this.root;
 
         foreach (var ch in word)
         {
@@ -47,14 +47,14 @@ public class Bor
         }
 
         node.IsTerminal = true;
-        WordCount++;
+        this.WordCount++;
         return true;
     }
 
     /// <summary>
     /// check is trie contains element.
     /// </summary>
-    /// <param name="elemet">element to check.</param>
+    /// <param name="word">element to check.</param>
     /// <returns>true if trie contains element.</returns>
     public bool Contains(string word)
     {
@@ -63,7 +63,7 @@ public class Bor
             return false;
         }
 
-        var node = _root;
+        var node = this.root;
 
         foreach (var ch in word)
         {
@@ -81,7 +81,7 @@ public class Bor
     /// <summary>
     /// remove element from trie.
     /// </summary>
-    /// <param name="element">element to remove.</param>
+    /// <param name="word">element to remove.</param>
     /// <returns>true if element was in trie.</returns>
     public bool Remove(string word)
     {
@@ -90,7 +90,7 @@ public class Bor
             return false;
         }
 
-        var node = _root;
+        var node = this.root;
         var path = new Stack<(TrieNode, char)>();
 
         foreach (var ch in word)
@@ -110,7 +110,7 @@ public class Bor
         }
 
         node.IsTerminal = false;
-        WordCount--;
+        this.WordCount--;
 
         while (path.Count > 0)
         {
@@ -137,10 +137,10 @@ public class Bor
     {
         if (string.IsNullOrEmpty(prefix))
         {
-            return WordCount;
+            return this.WordCount;
         }
 
-        var node = _root;
+        var node = this.root;
 
         foreach (var ch in prefix)
         {
@@ -158,7 +158,9 @@ public class Bor
     private class TrieNode
     {
         public Dictionary<char, TrieNode> Children { get; } = new();
+
         public bool IsTerminal { get; set; }
+
         public int TerminalCount { get; set; }
     }
 }
