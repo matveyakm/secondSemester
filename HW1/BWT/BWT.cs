@@ -1,3 +1,7 @@
+// <copyright file="BWT.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
 namespace BWT;
 
 /// <summary>
@@ -17,10 +21,10 @@ public static class BWT
             return ("Got null as a parameter", -1);
         }
 
-        string[] shifts = new string[word.Length];
-        string currentWord = word;
+        var shifts = new string[word.Length];
+        var currentWord = word;
 
-        for (int i = 0; i < word.Length; i++)
+        for (var i = 0; i < word.Length; i++)
         {
             currentWord = currentWord[1..] + currentWord[0];
             shifts[i] = currentWord;
@@ -28,10 +32,10 @@ public static class BWT
 
         Array.Sort(shifts);
 
-        string resultWord = string.Empty;
+        var resultWord = string.Empty;
         foreach (var shift in shifts)
         {
-            resultWord += shift[shift.Length - 1];
+            resultWord += shift[^1];
         }
 
         int pos = Array.IndexOf(shifts, word) + 1;
@@ -47,15 +51,15 @@ public static class BWT
     /// <returns>original word.</returns>
     public static string ReverseTransform(string word, int position)
     {
-        int len = word.Length;
-        Dictionary<char, int> charCounts = new Dictionary<char, int>();
+        var len = word.Length;
+        var charCounts = new Dictionary<char, int>();
         Dictionary<char, int> startIndexes = new Dictionary<char, int>();
         int[] nextPositions = new int[len];
         int total = 0;
 
         position--;
 
-        foreach (char chr in word)
+        foreach (var chr in word)
         {
             if (!charCounts.TryGetValue(chr, out int value))
             {
@@ -69,7 +73,7 @@ public static class BWT
         char[] sortedLetters = [.. charCounts.Keys];
         Array.Sort(sortedLetters);
 
-        foreach (char letter in sortedLetters)
+        foreach (var letter in sortedLetters)
         {
             startIndexes[letter] = total;
             total += charCounts[letter];
