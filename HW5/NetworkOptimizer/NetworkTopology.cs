@@ -81,7 +81,73 @@ public class NetworkTopology
         this.connections[nodeA].Add((nodeB, bandwidth));
     }
 
-    public void ValidateNetwork()
+    /// <summary>
+    /// to search optimal topology.
+    /// </summary>
+    /// <returns>optimal network.</returns>
+    public NetworkTopology GenerateOptimalTopology()
+    {
+        this.ValidateNetwork();
+
+        var optimalNetwork = new NetworkTopology();
+        var edgeQueue = new PriorityQueue<(int From, int To, int Bandwidth), int>(
+            Comparer<int>.Create((x, y) => y.CompareTo(x)));
+        var connectedNodes = new HashSet<int>();
+
+        int initialNode = this.connections.Keys.First();
+        connectedNodes.Add(initialNode);
+
+        foreach (var link in this.connections[initialNode])
+        {
+            edgeQueue.Enqueue((initialNode, link.Node, link.Bandwidth), link.Bandwidth);
+        }
+
+        while (edgeQueue.Count > 0 && connectedNodes.Count < this.connections.Count)
+        {
+            var current = edgeQueue.Dequeue();
+
+            if (connectedNodes.Contains(current.To))
+            {
+                continue;
+            }
+
+            optimalNetwork.AddConnection(current.From, current.To, current.Bandwidth);
+            connectedNodes.Add(current.To);
+
+            foreach (var neighbor in this.connections[current.To])
+            {
+                if (!connectedNodes.Contains(neighbor.Node))
+                {
+                    edgeQueue.Enqueue((current.To, neighbor.Node, neighbor.Bandwidth), neighbor.Bandwidth);
+                }
+            }
+        }
+
+        return optimalNetwork.GetSortedTopology();
+    }
+
+    /// <summary>
+    /// to write network in file.
+    /// </summary>
+    /// <param name="outputPath">file to write.</param>
+    public void SaveToFile(string outputPath)
+    {
+        using var writer = new StreamWriter(outputPath);
+
+        foreach (var node in this.connections.Keys.OrderBy(k => k))
+        {
+            var links = this.connections[node]
+                .OrderBy(l => l.Node)
+                .Select(l => $"{l.Node} ({l.Bandwidth})");
+
+            writer.WriteLine($"{node}: {string.Join(", ", links)}");
+        }
+    }
+
+    /// <summary>
+    /// to validate network.
+    /// </summary>
+    private void ValidateNetwork()
     {
         if (this.connections.Count == 0)
         {
@@ -94,6 +160,10 @@ public class NetworkTopology
         }
     }
 
+    /// <summary>
+    /// to check is network fully connected.
+    /// </summary>
+    /// <returns>false if network isn't connected.</returns>
     private bool IsNetworkFullyConnected()
     {
         var visited = new HashSet<int>();
@@ -128,6 +198,11 @@ public class NetworkTopology
         return visited.Count == this.connections.Count;
     }
 
+    /// <summary>
+    /// to parse node from file.
+    /// </summary>
+    /// <param name="nodeId">node number.</param>
+    /// <param name="connectionsData">tmp data.</param>
     private void ProcessNodeConnections(int nodeId, string connectionsData)
     {
         foreach (var connection in connectionsData.Split(','))
@@ -149,5 +224,24 @@ public class NetworkTopology
             this.AddConnection(nodeId, targetNode, bandwidth);
             this.AddConnection(targetNode, nodeId, bandwidth);
         }
+    }
+
+    /// <summary>
+    /// to sort topology by node A.
+    /// </summary>
+    /// <returns>sorted topology.</returns>
+    private NetworkTopology GetSortedTopology()
+    {
+        var sorted = new NetworkTopology();
+
+        foreach (var node in this.connections.Keys.OrderBy(k => k))
+        {
+            foreach (var link in this.connections[node].OrderBy(l => l.Node))
+            {
+                sorted.AddConnection(node, link.Node, link.Bandwidth);
+            }
+        }
+
+        return sorted;
     }
 }
