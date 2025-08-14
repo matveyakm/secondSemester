@@ -81,6 +81,53 @@ public class NetworkTopology
         this.connections[nodeA].Add((nodeB, bandwidth));
     }
 
+    public void ValidateNetwork()
+    {
+        if (this.connections.Count == 0)
+        {
+            throw new EmptyNetworkException("Network configuration is empty");
+        }
+
+        if (!this.IsNetworkFullyConnected())
+        {
+            throw new DisconnectedNetworkException("Network topology is disconnected");
+        }
+    }
+
+    private bool IsNetworkFullyConnected()
+    {
+        var visited = new HashSet<int>();
+        var nodesToVisit = new Stack<int>();
+
+        if (this.connections.Count == 0)
+        {
+            return false;
+        }
+
+        nodesToVisit.Push(this.connections.Keys.First());
+
+        while (nodesToVisit.Count > 0)
+        {
+            var current = nodesToVisit.Pop();
+            if (visited.Contains(current))
+            {
+                continue;
+            }
+
+            visited.Add(current);
+
+            foreach (var neighbor in this.connections[current])
+            {
+                if (!visited.Contains(neighbor.Node))
+                {
+                    nodesToVisit.Push(neighbor.Node);
+                }
+            }
+        }
+
+        return visited.Count == this.connections.Count;
+    }
+
     private void ProcessNodeConnections(int nodeId, string connectionsData)
     {
         foreach (var connection in connectionsData.Split(','))

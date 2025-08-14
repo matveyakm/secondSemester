@@ -2,4 +2,12 @@
 // Copyright (c) matveyakm. All rights reserved.
 // </copyright>
 
-Console.WriteLine("Hello, World!");
+using NetworkOptimizer;
+
+
+
+var graph = new NetworkTopology(args[0]);
+
+graph.ValidateNetwork();
+
+Console.WriteLine("All okey!!");
