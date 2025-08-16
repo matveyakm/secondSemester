@@ -56,6 +56,51 @@ public class NetworkTopologyTest
         Assert.Throws<DuplicateLinkException>(() => graph.AddConnection(2, 5, 60));
     }
     
-    
+    /// <summary>
+    /// test search max spanning tree.
+    /// </summary>
+    [Test]
+    public void Graph_SearchMaxSpanningTree()
+    {
+        var graph = new NetworkTopology(Path.Combine(AppContext.BaseDirectory, "TestNetworkOptimizer.txt"));
+        var tree = graph.GenerateOptimalTopology();
+        var expectedResult = new NetworkTopology();
 
+        expectedResult.AddConnection(1, 2, 2);
+        expectedResult.AddConnection(2, 4, 100);
+        expectedResult.AddConnection(4, 5, 15);
+
+        Assert.That(CompareTopology(expectedResult, tree), Is.True);
+    }
+
+    private static bool CompareTopology(NetworkTopology net1, NetworkTopology net2)
+    {
+        if (net1.Connections.Count != net2.Connections.Count)
+        {
+            return false;
+        }
+
+        foreach (var (vertex, edges1) in net1.Connections)
+        {
+            if (!net2.Connections.TryGetValue(vertex, out var edges2))
+            {
+                return false;
+            }
+
+            if (edges1.Count != edges2.Count)
+            {
+                return false;
+            }
+
+            for (var i = 0; i < edges1.Count; i++)
+            {
+                if (edges1[i] != edges2[i])
+                {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
 }
