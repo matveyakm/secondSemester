@@ -9,14 +9,12 @@ namespace NetworkOptimizer;
 /// </summary>
 public class NetworkTopology
 {
-    private readonly Dictionary<int, List<(int Node, int Bandwidth)>> connections;
-
     /// <summary>
     /// Initializes a new instance of the <see cref="NetworkTopology"/> class.
     /// </summary>
     public NetworkTopology()
     {
-        this.connections = new Dictionary<int, List<(int, int)>>();
+        this.Connections = new Dictionary<int, List<(int, int)>>();
     }
 
     /// <summary>
@@ -26,6 +24,11 @@ public class NetworkTopology
     public NetworkTopology(string inputFile)
         : this()
         => this.ReadTopologyFromFile(inputFile);
+
+    /// <summary>
+    /// gets list of connections of network.
+    /// </summary>
+    public Dictionary<int, List<(int Node, int Bandwidth)>> Connections { get; private set; }
 
     /// <summary>
     /// to read topology network from file.
@@ -68,17 +71,17 @@ public class NetworkTopology
     /// <param name="bandwidth">throughput capacity between nodes.</param>
     public void AddConnection(int nodeA, int nodeB, int bandwidth)
     {
-        if (!this.connections.ContainsKey(nodeA))
+        if (!this.Connections.ContainsKey(nodeA))
         {
-            this.connections[nodeA] = (List<(int, int)>)[];
+            this.Connections[nodeA] = (List<(int, int)>)[];
         }
 
-        if (this.connections[nodeA].Any(x => x.Node == nodeB))
+        if (this.Connections[nodeA].Any(x => x.Node == nodeB))
         {
             throw new DuplicateLinkException($"Connection {nodeA}-{nodeB} already exists");
         }
 
-        this.connections[nodeA].Add((nodeB, bandwidth));
+        this.Connections[nodeA].Add((nodeB, bandwidth));
     }
 
     /// <summary>
@@ -94,15 +97,15 @@ public class NetworkTopology
             Comparer<int>.Create((x, y) => y.CompareTo(x)));
         var connectedNodes = new HashSet<int>();
 
-        int initialNode = this.connections.Keys.First();
+        int initialNode = this.Connections.Keys.First();
         connectedNodes.Add(initialNode);
 
-        foreach (var link in this.connections[initialNode])
+        foreach (var link in this.Connections[initialNode])
         {
             edgeQueue.Enqueue((initialNode, link.Node, link.Bandwidth), link.Bandwidth);
         }
 
-        while (edgeQueue.Count > 0 && connectedNodes.Count < this.connections.Count)
+        while (edgeQueue.Count > 0 && connectedNodes.Count < this.Connections.Count)
         {
             var current = edgeQueue.Dequeue();
 
@@ -114,7 +117,7 @@ public class NetworkTopology
             optimalNetwork.AddConnection(current.From, current.To, current.Bandwidth);
             connectedNodes.Add(current.To);
 
-            foreach (var neighbor in this.connections[current.To])
+            foreach (var neighbor in this.Connections[current.To])
             {
                 if (!connectedNodes.Contains(neighbor.Node))
                 {
@@ -134,9 +137,9 @@ public class NetworkTopology
     {
         using var writer = new StreamWriter(outputPath);
 
-        foreach (var node in this.connections.Keys.OrderBy(k => k))
+        foreach (var node in this.Connections.Keys.OrderBy(k => k))
         {
-            var links = this.connections[node]
+            var links = this.Connections[node]
                 .OrderBy(l => l.Node)
                 .Select(l => $"{l.Node} ({l.Bandwidth})");
 
@@ -149,7 +152,7 @@ public class NetworkTopology
     /// </summary>
     private void ValidateNetwork()
     {
-        if (this.connections.Count == 0)
+        if (this.Connections.Count == 0)
         {
             throw new EmptyNetworkException("Network configuration is empty");
         }
@@ -169,12 +172,12 @@ public class NetworkTopology
         var visited = new HashSet<int>();
         var nodesToVisit = new Stack<int>();
 
-        if (this.connections.Count == 0)
+        if (this.Connections.Count == 0)
         {
             return false;
         }
 
-        nodesToVisit.Push(this.connections.Keys.First());
+        nodesToVisit.Push(this.Connections.Keys.First());
 
         while (nodesToVisit.Count > 0)
         {
@@ -186,7 +189,7 @@ public class NetworkTopology
 
             visited.Add(current);
 
-            foreach (var neighbor in this.connections[current])
+            foreach (var neighbor in this.Connections[current])
             {
                 if (!visited.Contains(neighbor.Node))
                 {
@@ -195,7 +198,7 @@ public class NetworkTopology
             }
         }
 
-        return visited.Count == this.connections.Count;
+        return visited.Count == this.Connections.Count;
     }
 
     /// <summary>
@@ -234,9 +237,9 @@ public class NetworkTopology
     {
         var sorted = new NetworkTopology();
 
-        foreach (var node in this.connections.Keys.OrderBy(k => k))
+        foreach (var node in this.Connections.Keys.OrderBy(k => k))
         {
-            foreach (var link in this.connections[node].OrderBy(l => l.Node))
+            foreach (var link in this.Connections[node].OrderBy(l => l.Node))
             {
                 sorted.AddConnection(node, link.Node, link.Bandwidth);
             }
