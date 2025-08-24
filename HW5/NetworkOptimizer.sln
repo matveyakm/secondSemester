@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkOptimizer", "NetworkOptimizer\NetworkOptimizer.csproj", "{FA5949BD-2BDF-403A-80B5-4B3B807281C2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkOptimizer.Tests", "NetworkOptimizer.Tests\NetworkOptimizer.Tests.csproj", "{34821E0B-C516-479F-99C8-E0FEE3DD26D9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FA5949BD-2BDF-403A-80B5-4B3B807281C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA5949BD-2BDF-403A-80B5-4B3B807281C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA5949BD-2BDF-403A-80B5-4B3B807281C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA5949BD-2BDF-403A-80B5-4B3B807281C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34821E0B-C516-479F-99C8-E0FEE3DD26D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34821E0B-C516-479F-99C8-E0FEE3DD26D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34821E0B-C516-479F-99C8-E0FEE3DD26D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34821E0B-C516-479F-99C8-E0FEE3DD26D9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
