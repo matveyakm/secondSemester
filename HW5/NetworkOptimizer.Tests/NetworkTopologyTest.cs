@@ -55,7 +55,7 @@ public class NetworkTopologyTest
 
         Assert.Throws<DuplicateLinkException>(() => graph.AddConnection(2, 5, 60));
     }
-    
+
     /// <summary>
     /// test search max spanning tree.
     /// </summary>
