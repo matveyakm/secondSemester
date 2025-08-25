@@ -16,7 +16,7 @@ public static class Parser
     /// </summary>
     /// <param name="filePath">file .</param>
     /// <returns>syntax tree's root.</returns>
-    public static Node ParseExpression(string filePath)
+    public static Node ParseExpressionFromFile(string filePath)
     {
         if (!File.Exists(filePath))
         {
@@ -24,6 +24,17 @@ public static class Parser
         }
 
         using var reader = new StreamReader(filePath);
+        return ParseNode(reader);
+    }
+
+    /// <summary>
+    /// to parse string using expression.
+    /// </summary>
+    /// <param name="expression">expression.</param>
+    /// <returns>syntax tree.</returns>
+    public static Node ParseExpression(string expression)
+    {
+        using var reader = new StringReader(expression);
         return ParseNode(reader);
     }
 
@@ -143,6 +154,4 @@ public static class Parser
             _ => throw new FormatException($"Unknown operation '{operation}'"),
         };
     }
-
-
 }

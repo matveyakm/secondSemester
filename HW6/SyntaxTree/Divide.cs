@@ -5,7 +5,7 @@
 namespace SyntaxTree;
 
 /// <summary>
-/// operation "divide". 
+/// operation "divide".
 /// </summary>
 public class Divide : Operation
 {
