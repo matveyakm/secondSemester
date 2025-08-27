@@ -1,12 +1,14 @@
-using NUnit.Framework;
+// <copyright file="BwtTest.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
-namespace BWT.Tests;
+namespace BWT.Test;
 
 /// <summary>
 /// NUnit-based tests for BWT.
 /// </summary>
 [TestFixture]
-public class BWTTests
+public class BwtTest
 {
     /// <summary>
     /// Test-data: [original, BWT, index]
@@ -28,11 +30,11 @@ public class BWTTests
             string expectedBwt = TestCases[i][1];
             int expectedIndex = int.Parse(TestCases[i][2]);
 
-            var (actualBwt, actualIndex) = BWT.Transform(original);
+            var (actualBwt, actualIndex) = Bwt.Transform(original);
             Assert.That(actualBwt, Is.EqualTo(expectedBwt), $"BWT failed for input '{original}'");
             Assert.That(actualIndex, Is.EqualTo(expectedIndex), $"Index mismatch for input '{original}'");
 
-            string decoded = BWT.ReverseTransform(expectedBwt, expectedIndex);
+            string decoded = Bwt.ReverseTransform(expectedBwt, expectedIndex);
             Assert.That(decoded, Is.EqualTo(original), $"ReverseTransform failed for input '{original}'");
         }
     }

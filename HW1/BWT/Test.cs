@@ -21,8 +21,8 @@ public class Test
 
         for (var i = 0; i < testInputs.Length; ++i)
         {
-            bool isTransformationCorrect = BWT.Transform(testInputs[i][0]) == (testInputs[i][1], Convert.ToInt32(testInputs[i][2]));
-            bool isReverseTransformationCorrect = BWT.ReverseTransform(testInputs[i][1], Convert.ToInt32(testInputs[i][2])) == testInputs[i][0];
+            bool isTransformationCorrect = Bwt.Transform(testInputs[i][0]) == (testInputs[i][1], Convert.ToInt32(testInputs[i][2]));
+            bool isReverseTransformationCorrect = Bwt.ReverseTransform(testInputs[i][1], Convert.ToInt32(testInputs[i][2])) == testInputs[i][0];
             if (!(isTransformationCorrect && isReverseTransformationCorrect))
             {
                 Console.WriteLine($"Test {i + 1} failed");

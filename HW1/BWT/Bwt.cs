@@ -1,4 +1,4 @@
-// <copyright file="BWT.cs" company="PlaceholderCompany">
+// <copyright file="Bwt.cs" company="PlaceholderCompany">
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
@@ -7,14 +7,14 @@ namespace BWT;
 /// <summary>
 /// BWT realization.
 /// </summary>
-public static class BWT
+public static class Bwt
 {
     /// <summary>
     /// word transform.
     /// </summary>
     /// <param name="word">word, which will be transformed.</param>
     /// <returns>transformed word and position.</returns>
-    public static (string TransformWord, int Position) Transform(string word)
+    public static (string TransformWord, int Position) Transform(string? word)
     {
         if (word == null)
         {
@@ -38,9 +38,9 @@ public static class BWT
             resultWord += shift[^1];
         }
 
-        int pos = Array.IndexOf(shifts, word) + 1;
+        int position = Array.IndexOf(shifts, word) + 1;
 
-        return (resultWord, pos);
+        return (resultWord, position);
     }
 
     /// <summary>
@@ -53,15 +53,15 @@ public static class BWT
     {
         var len = word.Length;
         var charCounts = new Dictionary<char, int>();
-        Dictionary<char, int> startIndexes = new Dictionary<char, int>();
-        int[] nextPositions = new int[len];
-        int total = 0;
+        Dictionary<char, int> startIndexes = new();
+        var nextPositions = new int[len];
 
+        var total = 0;
         position--;
 
         foreach (var chr in word)
         {
-            if (!charCounts.TryGetValue(chr, out int value))
+            if (!charCounts.TryGetValue(chr, out var value))
             {
                 value = 0;
                 charCounts[chr] = value;
@@ -79,16 +79,16 @@ public static class BWT
             total += charCounts[letter];
         }
 
-        for (int i = 0; i < len; i++)
+        for (var i = 0; i < len; i++)
         {
-            char letter = word[i];
+            var letter = word[i];
             nextPositions[startIndexes[letter]] = i;
             startIndexes[letter]++;
         }
 
-        char[] original = new char[len];
-        int currentIndex = position;
-        for (int i = 0; i < len; i++)
+        var original = new char[len];
+        var currentIndex = position;
+        for (var i = 0; i < len; i++)
         {
             original[i] = word[nextPositions[currentIndex]];
             currentIndex = nextPositions[currentIndex];
