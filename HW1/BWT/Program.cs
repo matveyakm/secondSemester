@@ -26,49 +26,48 @@ else
         switch (Console.ReadLine())
         {
             case "1":
-                {
-                    Console.WriteLine("Enter a string: ");
-                    var inputString = Console.ReadLine();
-                    var (resultString, originalStringIndex) = Bwt.Transform(inputString);
-                    Console.WriteLine($"Result of direct BWT: {resultString} ({originalStringIndex})");
-                    break;
-                }
+            {
+                Console.WriteLine("Enter a string: ");
+                var inputString = Console.ReadLine();
+                var (resultString, originalStringIndex) = Bwt.Transform(inputString);
+                Console.WriteLine($"Result of direct BWT: {resultString} ({originalStringIndex})");
+                break;
+            }
 
             case "2":
+            {
+                Console.WriteLine("Enter a result of direct BWT (separated by space):");
+
+                var input = Console.ReadLine();
+
+                var bwtResult = input!.Split();
+                if (bwtResult.Length != 2)
                 {
-                    Console.WriteLine("Enter a result of direct BWT (separated by space):");
-
-                    var input = Console.ReadLine();
-
-                    var bwtResult = input!.Split();
-                    if (bwtResult.Length != 2)
-                    {
-                        Console.WriteLine("You can't add not 2 arguments");
-                        return;
-                    }
-
-                    if (!int.TryParse(bwtResult[1], out var index))
-                    {
-                        Console.WriteLine("Second variable should be number");
-                        return;
-                    }
-
-                    Console.WriteLine($"Result of reverse transformation: {Bwt.ReverseTransform(bwtResult[0], index)}");
-                    break;
+                    Console.WriteLine("You can't add not 2 arguments");
+                    return;
                 }
+
+                if (!int.TryParse(bwtResult[1], out var index))
+                {
+                    Console.WriteLine("Second variable should be number");
+                    return;
+                }
+
+                Console.WriteLine($"Result of reverse transformation: {Bwt.ReverseTransform(bwtResult[0], index)}");
+                break;
+            }
 
             case "3":
-                {
-                    continueProcessing = false;
-                    break;
-                }
+            {
+                continueProcessing = false;
+                break;
+            }
 
             default:
-                {
-                    Console.WriteLine("Invalid input");
-                    break;
-                }
+            {
+                Console.WriteLine("Invalid input");
+                break;
+            }
         }
     }
 }
-
