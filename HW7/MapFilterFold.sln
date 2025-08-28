@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapFilterFold", "MapFilterFold\MapFilterFold.csproj", "{33985855-D15F-4709-A82F-727E6655559A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapFilterFold.Test", "MapFilterFold.Test\MapFilterFold.Test.csproj", "{78808CC3-9EB9-481B-8A9B-95F7FAEAD169}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{33985855-D15F-4709-A82F-727E6655559A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{33985855-D15F-4709-A82F-727E6655559A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{33985855-D15F-4709-A82F-727E6655559A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78808CC3-9EB9-481B-8A9B-95F7FAEAD169}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78808CC3-9EB9-481B-8A9B-95F7FAEAD169}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78808CC3-9EB9-481B-8A9B-95F7FAEAD169}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78808CC3-9EB9-481B-8A9B-95F7FAEAD169}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
