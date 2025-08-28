@@ -11,31 +11,30 @@ namespace BWT.Test;
 public class BwtTest
 {
     /// <summary>
-    /// Test-data: [original, BWT, index]
+    /// test transform with upper case string.
     /// </summary>
-    private static readonly string[][] TestCases =
-    {
-        ["HELLOWORLD", "LHDRELWLOO", "3"],
-        ["привет,мир", "тиврм,рпие", "7"],
-        ["banana", "nnbaaa", "4"],
-        ["just_a_test", "ta_ttues_sj", "5"]
-    };
-
     [Test]
-    public void AllTestCasesPass()
-    {
-        for (int i = 0; i < TestCases.Length; i++)
-        {
-            string original = TestCases[i][0];
-            string expectedBwt = TestCases[i][1];
-            int expectedIndex = int.Parse(TestCases[i][2]);
+    public void Bwt_Transform_UpperCaseString()
+        => Assert.That(Bwt.Transform("HELLOWORLD"), Is.EqualTo(("LHDRELWLOO", 3)));
 
-            var (actualBwt, actualIndex) = Bwt.Transform(original);
-            Assert.That(actualBwt, Is.EqualTo(expectedBwt), $"BWT failed for input '{original}'");
-            Assert.That(actualIndex, Is.EqualTo(expectedIndex), $"Index mismatch for input '{original}'");
+    /// <summary>
+    /// test transform with russian string.
+    /// </summary>
+    [Test]
+    public void Bwt_Transform_RussianString()
+        => Assert.That(Bwt.Transform("привет,мир"), Is.EqualTo(("тиврм,рпие", 7)));
 
-            string decoded = Bwt.ReverseTransform(expectedBwt, expectedIndex);
-            Assert.That(decoded, Is.EqualTo(original), $"ReverseTransform failed for input '{original}'");
-        }
-    }
+    /// <summary>
+    /// test reverse transform with default string.
+    /// </summary>
+    [Test]
+    public void Bwt_ReverseTransform_DefaultString()
+        => Assert.That(Bwt.ReverseTransform("nnbaaa", 4), Is.EqualTo("banana"));
+
+    /// <summary>
+    /// test reverse transform with string with special symbols.
+    /// </summary>
+    [Test]
+    public void Bwt_ReverseTransform_StringWithSpecialSymbols()
+        => Assert.That(Bwt.ReverseTransform("ta_ttues_sj", 5), Is.EqualTo("just_a_test"));
 }

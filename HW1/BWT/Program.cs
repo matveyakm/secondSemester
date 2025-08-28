@@ -40,7 +40,7 @@ else
 
                     var input = Console.ReadLine();
 
-                    var bwtResult = input.Split();
+                    var bwtResult = input!.Split();
                     if (bwtResult.Length != 2)
                     {
                         Console.WriteLine("You can't add not 2 arguments");
