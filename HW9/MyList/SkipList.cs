@@ -173,9 +173,20 @@ public class SkipList<T> : IList<T>
         ++this.modificationCounter;
     }
 
+    /// <inheritdoc/>
     public void Clear()
     {
-        throw new NotImplementedException();
+        this.baseNode = new SkipListNode(default, this.terminalNode, this.terminalNode);
+        var temp = this.baseNode;
+
+        for (var level = 1; level < MaximumLevel; level++)
+        {
+            temp = new SkipListNode(default, this.terminalNode, temp);
+        }
+
+        this.topNode = temp;
+        this.Count = 0;
+        ++this.modificationCounter;
     }
 
     public bool Contains(T element)
@@ -237,23 +248,30 @@ public class SkipList<T> : IList<T>
         }
     }
 
-    private int GenerateRandomLevel()
-    {
-        var level = 1;
-
-        while (this.levelRandomizer.NextDouble() < DefaultThreshold && level < MaximumLevel)
-        {
-            ++level;
-        }
-
-        return level;
-    }
-
+    /// <inheritdoc/>
     public IEnumerator<T> GetEnumerator()
     {
-        throw new NotImplementedException();
+        var currentNode = this.baseNode.Next;
+        var initialModificationCount = this.modificationCounter;
+
+        while (currentNode != this.terminalNode && currentNode != null)
+        {
+            if (initialModificationCount != this.modificationCounter)
+            {
+                throw new InvalidOperationException("Collection was modified during enumeration");
+            }
+
+            if (currentNode.Data == null)
+            {
+                throw new NullReferenceException("Encountered null element during enumeration");
+            }
+
+            yield return currentNode.Data;
+            currentNode = currentNode.Next;
+        }
     }
 
+    /// <inheritdoc/>
     IEnumerator IEnumerable.GetEnumerator()
     {
         return this.GetEnumerator();
@@ -272,6 +290,18 @@ public class SkipList<T> : IList<T>
     public void RemoveAt(int index)
     {
         throw new NotImplementedException();
+    }
+
+    private int GenerateRandomLevel()
+    {
+        var level = 1;
+
+        while (this.levelRandomizer.NextDouble() < DefaultThreshold && level < MaximumLevel)
+        {
+            ++level;
+        }
+
+        return level;
     }
 
     private class SkipListNode(T? data, SkipListNode? next, SkipListNode? down)
