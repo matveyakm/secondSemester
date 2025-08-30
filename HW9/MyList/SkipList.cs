@@ -189,6 +189,7 @@ public class SkipList<T> : IList<T>
         ++this.modificationCounter;
     }
 
+    /// <inheritdoc/>
     public bool Contains(T element)
     {
         if (element == null)
@@ -277,9 +278,40 @@ public class SkipList<T> : IList<T>
         return this.GetEnumerator();
     }
 
-    public int IndexOf(T item)
+    /// <inheritdoc/>
+    public int IndexOf(T element)
     {
-        throw new NotImplementedException();
+        if (element == null)
+        {
+            throw new ArgumentNullException(nameof(element));
+        }
+
+        var currentIndex = 0;
+        var currentNode = this.baseNode.Next;
+
+        while (currentNode != null && currentNode != this.terminalNode)
+        {
+            if (currentNode.Data == null)
+            {
+                throw new InvalidOperationException("Collection contains null values");
+            }
+
+            var comparisonResult = currentNode.Data.CompareTo(element);
+            if (comparisonResult == 0)
+            {
+                return currentIndex;
+            }
+
+            if (comparisonResult > 0)
+            {
+                break;
+            }
+
+            currentNode = currentNode.Next;
+            ++currentIndex;
+        }
+
+        return -1;
     }
 
     public void Insert(int index, T item)
