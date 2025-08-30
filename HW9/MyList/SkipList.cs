@@ -314,14 +314,16 @@ public class SkipList<T> : IList<T>
         return -1;
     }
 
+    /// <inheritdoc/>
     public void Insert(int index, T item)
     {
-        throw new NotImplementedException();
+        throw new NotImplementedException("Position-based insertion is not supported");
     }
 
-    public void RemoveAt(int index)
+    /// <inheritdoc/>
+    public void RemoveAt(int position)
     {
-        throw new NotImplementedException();
+        this.Remove(this[position]);
     }
 
     private int GenerateRandomLevel()
