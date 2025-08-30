@@ -208,9 +208,33 @@ public class SkipList<T> : IList<T>
         return false;
     }
 
-    public void CopyTo(T[] array, int arrayIndex)
+    /// <inheritdoc/>
+    public void CopyTo(T[] targetArray, int startIndex)
     {
-        throw new NotImplementedException();
+        if (targetArray == null)
+        {
+            throw new ArgumentNullException(nameof(targetArray));
+        }
+
+        if (startIndex < 0 || startIndex >= targetArray.Length || startIndex + this.Count > targetArray.Length)
+        {
+            throw new ArgumentOutOfRangeException(nameof(startIndex));
+        }
+
+        var currentNode = this.baseNode.Next;
+
+        while (currentNode != this.terminalNode)
+        {
+            if (currentNode == null || currentNode.Data == null)
+            {
+                throw new ArgumentException("Invalid element encountered during copy operation");
+            }
+
+            targetArray[startIndex] = currentNode.Data;
+
+            ++startIndex;
+            currentNode = currentNode.Next;
+        }
     }
 
     private int GenerateRandomLevel()
@@ -223,15 +247,6 @@ public class SkipList<T> : IList<T>
         }
 
         return level;
-    }
-
-    private class SkipListNode(T? data, SkipListNode? next, SkipListNode? down)
-    {
-        public T? Data { get; set; } = data;
-
-        public SkipListNode? Next { get; set; } = next;
-
-        public SkipListNode? Down { get; set; } = down;
     }
 
     public IEnumerator<T> GetEnumerator()
@@ -259,6 +274,12 @@ public class SkipList<T> : IList<T>
         throw new NotImplementedException();
     }
 
+    private class SkipListNode(T? data, SkipListNode? next, SkipListNode? down)
+    {
+        public T? Data { get; set; } = data;
 
+        public SkipListNode? Next { get; set; } = next;
 
+        public SkipListNode? Down { get; set; } = down;
+    }
 }
