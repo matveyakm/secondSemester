@@ -85,9 +85,50 @@ public class SkipList<T> : IList<T>
     }
 
     /// <inheritdoc/>
-    public bool Remove(T item)
+    public bool Remove(T element)
     {
-        throw new NotImplementedException();
+        if (element == null)
+        {
+            throw new ArgumentNullException(nameof(element));
+        }
+
+        if (!this.Contains(element))
+        {
+            return false;
+        }
+
+        var currentNode = this.topNode;
+        var removalPerformed = false;
+
+        while (currentNode != null)
+        {
+            while (currentNode.Next != null
+                   && currentNode.Next != this.terminalNode
+                   && currentNode.Next.Data != null
+                   && currentNode.Next.Data.CompareTo(element) < 0)
+            {
+                currentNode = currentNode.Next;
+            }
+
+            if (currentNode.Next != this.terminalNode &&
+                currentNode.Next != null &&
+                currentNode.Next.Data != null &&
+                currentNode.Next.Data.CompareTo(element) == 0)
+            {
+                currentNode.Next = currentNode.Next.Next;
+                removalPerformed = true;
+            }
+
+            currentNode = currentNode.Down;
+        }
+
+        if (removalPerformed)
+        {
+            --this.Count;
+            ++this.modificationCounter;
+        }
+
+        return removalPerformed;
     }
 
     /// <inheritdoc/>
