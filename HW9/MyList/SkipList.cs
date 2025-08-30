@@ -50,15 +50,44 @@ public class SkipList<T> : IList<T>
         }
     }
 
+    /// <inheritdoc/>
+    public int Count { get; private set; }
+
+    /// <inheritdoc/>
+    public bool IsReadOnly => false;
+
+    /// <inheritdoc/>
+    public T this[int position]
+    {
+        get
+        {
+            if (position < 0 || position >= this.Count)
+            {
+                throw new ArgumentOutOfRangeException(nameof(position));
+            }
+
+            var currentNode = this.baseNode.Next ?? throw new EmptyCollectionException("Cannot access elements of an empty collection");
+
+            for (var i = 0; i < position; ++i)
+            {
+                currentNode = currentNode.Next ?? throw new InvalidOperationException("Specified position is beyond collection boundaries");
+            }
+
+            if (currentNode.Data == null)
+            {
+                throw new InvalidOperationException("Collection contains null value at specified position");
+            }
+
+            return currentNode.Data;
+        }
+
+        set => throw new NotSupportedException("Index-based assignment is not supported");
+    }
+
     public bool Remove(T item)
     {
         throw new NotImplementedException();
     }
-
-    /// <inheritdoc/>
-    public int Count { get; private set; }
-
-    public bool IsReadOnly { get; }
 
     /// <inheritdoc/>
     public void Add(T element)
@@ -163,9 +192,6 @@ public class SkipList<T> : IList<T>
         throw new NotImplementedException();
     }
 
-    public T this[int index]
-    {
-        get => throw new NotImplementedException();
-        set => throw new NotImplementedException();
-    }
+
+
 }
