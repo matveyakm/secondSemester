@@ -84,6 +84,7 @@ public class SkipList<T> : IList<T>
         set => throw new NotSupportedException("Index-based assignment is not supported");
     }
 
+    /// <inheritdoc/>
     public bool Remove(T item)
     {
         throw new NotImplementedException();
@@ -136,9 +137,34 @@ public class SkipList<T> : IList<T>
         throw new NotImplementedException();
     }
 
-    public bool Contains(T item)
+    public bool Contains(T element)
     {
-        throw new NotImplementedException();
+        if (element == null)
+        {
+            throw new ArgumentNullException(nameof(element));
+        }
+
+        var currentNode = this.topNode;
+
+        while (currentNode != null)
+        {
+            while (currentNode.Next != null && currentNode.Next != this.terminalNode &&
+                   currentNode.Next.Data != null &&
+                   currentNode.Next.Data.CompareTo(element) < 0)
+            {
+                currentNode = currentNode.Next;
+            }
+
+            if (currentNode.Next != null && currentNode.Next.Data != null &&
+                currentNode.Next.Data.CompareTo(element) == 0)
+            {
+                return true;
+            }
+
+            currentNode = currentNode.Down;
+        }
+
+        return false;
     }
 
     public void CopyTo(T[] array, int arrayIndex)
