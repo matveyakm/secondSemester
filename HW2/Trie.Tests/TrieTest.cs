@@ -2,155 +2,176 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-using Trie;
+namespace Trie.Tests;
 
 /// <summary>
 /// tests for trie.
 /// </summary>
 public class TrieTest
 {
-    [Test]
-    public void TrieAddNewWordsShouldReturnTrue()
-    {
-        var bor = new Bor();
+    private Trie trie;
 
+    /// <summary>
+    /// to initialize field trie for each test.
+    /// </summary>
+    [SetUp]
+    public void Initialize()
+    {
+        this.trie = new Trie();
+    }
+
+    /// <summary>
+    /// test method Add by adding new word.
+    /// </summary>
+    [Test]
+    public void Trie_AddNewWords_ShouldReturnTrue()
+    {
         List<string> words = ["mother", "moth", "m"];
 
         foreach (var word in words)
         {
-            Assert.That(bor.Add(word), Is.True);
+            Assert.That(this.trie.Add(word), Is.True);
         }
     }
 
+    /// <summary>
+    /// test field Size after adding words.
+    /// </summary>
     [Test]
-    public void TrieSizeAfterAddingWords()
+    public void Trie_Size_AfterAddingWords()
     {
-        var bor = new Bor();
-
         List<string> words = ["word", "test", "mum", "word_2"];
 
         foreach (var word in words)
         {
-            bor.Add(word);
+            this.trie.Add(word);
         }
 
-        Assert.That(bor.WordCount, Is.EqualTo(words.Count));
+        Assert.That(this.trie.WordCount, Is.EqualTo(words.Count));
     }
 
+    /// <summary>
+    /// test method Add by adding already added word.
+    /// </summary>
     [Test]
-    public void TrieAddAlreadyAddedWordShouldReturnFalse()
+    public void Trie_Add_AlreadyAddedWord_ShouldReturnFalse()
     {
-        var bor = new Bor();
-
         const string word = "Word";
 
-        bor.Add(word);
+        this.trie.Add(word);
 
-        Assert.That(bor.Add(word), Is.False);
+        Assert.That(this.trie.Add(word), Is.False);
     }
 
+    /// <summary>
+    /// test method Add after deleting word.
+    /// </summary>
     [Test]
-    public void TrieAddWordAfterDeletingShouldReturnTrue()
+    public void Trie_Add_AfterDeleting_ShouldReturnTrue()
     {
-        var bor = new Bor();
-
         const string word = "test";
 
-        bor.Add(word);
+        this.trie.Add(word);
 
-        bor.Remove(word);
+        this.trie.Remove(word);
 
-        Assert.That(bor.Add(word), Is.True);
+        Assert.That(this.trie.Add(word), Is.True);
     }
 
+    /// <summary>
+    /// test field Size after deleting word.
+    /// </summary>
     [Test]
-    public void TrieSizeAfterDeleting()
+    public void Trie_Size_AfterDeleting()
     {
-        var bor = new Bor();
-
         List<string> words = ["word", "test", "Test", "word2"];
 
         foreach (var word in words)
         {
-            bor.Add(word);
+            this.trie.Add(word);
         }
 
-        bor.Remove(words[0]);
-        bor.Remove(words[1]);
+        this.trie.Remove(words[0]);
+        this.trie.Remove(words[1]);
 
-        var expextedResult = words.Count - 2;
+        var expectedResult = words.Count - 2;
 
-        Assert.That(bor.WordCount, Is.EqualTo(expextedResult));
+        Assert.That(this.trie.WordCount, Is.EqualTo(expectedResult));
     }
 
+    /// <summary>
+    /// test field Size of empty trie.
+    /// </summary>
     [Test]
-    public void TrieSizeOfEmptyBor()
+    public void Trie_Size_OfEmptyBor()
     {
-        var bor = new Bor();
+        const int expectedResult = 0;
 
-        const int expextedResult = 0;
-
-        Assert.That(bor.WordCount, Is.EqualTo(expextedResult));
+        Assert.That(this.trie.WordCount, Is.EqualTo(expectedResult));
     }
 
+    /// <summary>
+    /// test method Contains after adding word.
+    /// </summary>
     [Test]
-    public void TrieContainsWordAfterAddingShouldReturnTrue()
+    public void Trie_Contains_WordAfterAdding_ShouldReturnTrue()
     {
-        var bor = new Bor();
-
         const string word = "Word";
 
-        bor.Add(word);
+        this.trie.Add(word);
 
-        Assert.That(bor.Contains(word), Is.True);
+        Assert.That(this.trie.Contains(word), Is.True);
     }
 
+    /// <summary>
+    /// test method Contains with non-existing word.
+    /// </summary>
     [Test]
-    public void TrieContainsWordWhichNotAddedShouldReturnFalse()
+    public void Trie_Contains_WordWhichNotAdded_ShouldReturnFalse()
     {
-        var bor = new Bor();
-
         const string word = "test";
 
-        Assert.That(bor.Contains(word), Is.False);
+        Assert.That(this.trie.Contains(word), Is.False);
     }
 
+    /// <summary>
+    /// test method Contains with word after deleting.
+    /// </summary>
     [Test]
-    public void TrieContainsWordAfterDeletingShouldReturnFalse()
+    public void Trie_Contains_WordAfterDeleting_ShouldReturnFalse()
     {
-        var bor = new Bor();
-
         const string word = "Word";
 
-        bor.Add(word);
+        this.trie.Add(word);
 
-        bor.Remove(word);
+        this.trie.Remove(word);
 
-        Assert.That(bor.Contains(word), Is.False);
+        Assert.That(this.trie.Contains(word), Is.False);
     }
 
+    /// <summary>
+    /// test method Remove with word after adding.
+    /// </summary>
     [Test]
-    public void TrieRemoveWordAfterAdding()
+    public void Trie_Remove_WordAfterAdding()
     {
-        var bor = new Bor();
-
         const string word = "Word_123";
 
-        bor.Add(word);
+        this.trie.Add(word);
 
-        bor.Remove(word);
+        this.trie.Remove(word);
 
-        Assert.That(bor.Contains(word), Is.False);
+        Assert.That(this.trie.Contains(word), Is.False);
     }
 
+    /// <summary>
+    /// test method Remove with non-existing word.
+    /// </summary>
     [Test]
-    public void TrieRemoveWordWhichWasNotAddedShouldReturnFalse()
+    public void Trie_Remove_WordWhichWasNotAdded_ShouldReturnFalse()
     {
-        var bor = new Bor();
-
         const string word = "LLM";
 
-        Assert.That(bor.Remove(word), Is.False);
+        Assert.That(this.trie.Remove(word), Is.False);
     }
-
 }

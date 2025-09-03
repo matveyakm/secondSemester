@@ -5,16 +5,16 @@
 namespace Trie;
 
 /// <summary>
-/// realization of Bor.
+/// realization of Trie.
 /// </summary>
-public class Bor
+public class Trie
 {
     private readonly TrieNode root = new();
 
     /// <summary>
-    /// Gets or sets amount of added words in trie.
+    /// Gets amount of added words in trie.
     /// </summary>
-    public int WordCount { get; set; }
+    public int WordCount { get; private set; }
 
     /// <summary>
     /// Add new word in trie.
