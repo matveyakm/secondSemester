@@ -1,5 +1,5 @@
-// <copyright file="BwtTest.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+// <copyright file="BwtTest.cs" company="matveyakm">
+// Copyright (c) matveyakm. All rights reserved.
 // </copyright>
 
 namespace BWT.Test;

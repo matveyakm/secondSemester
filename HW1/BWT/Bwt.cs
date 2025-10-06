@@ -1,5 +1,5 @@
-// <copyright file="Bwt.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+// <copyright file="Bwt.cs" company="matveyakm">
+// Copyright (c) matveyakm. All rights reserved.
 // </copyright>
 
 namespace BWT;
