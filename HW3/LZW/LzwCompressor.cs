@@ -1,4 +1,4 @@
-// <copyright file="LzwCompress.cs" company="matveyakm">
+// <copyright file="LzwCompressor.cs" company="matveyakm">
 // Copyright (c) matveyakm. All rights reserved.
 // </copyright>
 
@@ -7,7 +7,7 @@ namespace LZW;
 /// <summary>
 /// to compress file.
 /// </summary>
-public class LzwCompress
+public static class LzwCompressor
 {
     /// <summary>
     /// to compress file.
@@ -31,13 +31,13 @@ public class LzwCompress
     }
 
     /// <summary>
-    /// to encode file.
+    /// to encode byte sequence.
     /// </summary>
-    /// <param name="inputBytes">file to encode.</param>
+    /// <param name="inputBytes">byte sequence to encode.</param>
     /// <returns>array of codes.</returns>
-    public static int[] Encode(byte[] inputBytes)
+    private static int[] Encode(byte[] inputBytes)
     {
-        var dictionary = Bor.Init();
+        var dictionary = new Bor();
         var nextCode = dictionary.WordCount;
 
         var buffer = new List<byte> { inputBytes[0] };
@@ -73,7 +73,7 @@ public class LzwCompress
     /// </summary>
     /// <param name="inputData">data to convert.</param>
     /// <returns>byte sequence.</returns>
-    public static byte[] ConvertIntArrayToByteStream(int[] inputData)
+    private static byte[] ConvertIntArrayToByteStream(int[] inputData)
     {
         var byteCollection = new List<byte>();
 

@@ -1,4 +1,4 @@
-// <copyright file="LzwDecompress.cs" company="matveyakm">
+// <copyright file="LzwDecompressor.cs" company="matveyakm">
 // Copyright (c) matveyakm. All rights reserved.
 // </copyright>
 
@@ -7,7 +7,7 @@ namespace LZW;
 /// <summary>
 /// to decompress file.
 /// </summary>
-public class LzwDecompress
+public static class LzwDecompressor
 {
     /// <summary>
     /// to decompress file.
@@ -28,7 +28,7 @@ public class LzwDecompress
     /// </summary>
     /// <param name="inputBytes">input sequence to convert.</param>
     /// <returns>int array of codes.</returns>
-    public static int[] ConvertByteStreamToIntValues(byte[] inputBytes)
+    private static int[] ConvertByteStreamToIntValues(byte[] inputBytes)
     {
         var outputValues = new List<int>();
         var currentValue = 0;
@@ -58,7 +58,7 @@ public class LzwDecompress
     /// </summary>
     /// <param name="inputCodes">array of codes to decode.</param>
     /// <returns>byte sequence of codes.</returns>
-    public static byte[] Decode(int[] inputCodes)
+    private static byte[] Decode(int[] inputCodes)
     {
         var dictionary = new Dictionary<int, List<byte>>();
         var decompressed = new List<byte>();

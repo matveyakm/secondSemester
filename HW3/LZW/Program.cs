@@ -16,14 +16,14 @@ switch (args[0])
 {
     case "-c":
     {
-        var compressionRatio = LzwCompress.Compress(args[1]);
+        var compressionRatio = LzwCompressor.Compress(args[1]);
         Console.WriteLine("Compression ratio: " + compressionRatio);
         break;
     }
 
     case "-u":
     {
-        LzwDecompress.Decompress(args[1]);
+        LzwDecompressor.Decompress(args[1]);
         break;
     }
 

@@ -8,84 +8,73 @@ using System.Text;
 using LZW;
 
 /// <summary>
-/// tests for LZW.
+/// settings for lzw tests.
 /// </summary>
+[TestFixture]
 public class LzwTest
 {
     /// <summary>
-    /// test that data equal after compress and decompress.
+    /// directory with test file.
     /// </summary>
-    [Test]
-    public void LZW_DataAfterCompressAndDecompress_ShouldEqual()
-    {
-        var testData = Encoding.ASCII.GetBytes("fsjgnfisgns ihnxwueihx8behremx0rgmwgwzemg");
-
-        var codes = LzwCompress.Encode(testData);
-        var compressedData = LzwCompress.ConvertIntArrayToByteStream(codes);
-
-        var codesAfterCompress = LzwDecompress.ConvertByteStreamToIntValues(compressedData);
-        var decompressData = LzwDecompress.Decode(codesAfterCompress);
-
-        Assert.That(testData, Is.EqualTo(decompressData));
-    }
+    protected string testDirectory;
 
     /// <summary>
-    /// test for correct encoding array of bytes.
+    /// Assert file are equal.
     /// </summary>
-    [Test]
-    public void LzwCompress_Encode_NormalArrayOfBytes()
+    /// <param name="expectedFile">expected file.</param>
+    /// <param name="actualFile">file.</param>
+    protected static void AssertFilesAreEqual(string expectedFile, string actualFile)
     {
-        var testData = new byte[256];
-        var expectedResult = new int[256];
-        for (var i = 0; i < 256; ++i)
+        Assert.Multiple(() =>
         {
-            testData[i] = (byte)i;
-            expectedResult[i] = i;
+            Assert.That(File.Exists(expectedFile), Is.True);
+            Assert.That(File.Exists(actualFile), Is.True);
+        });
+
+        var expectedSize = new FileInfo(expectedFile).Length;
+        var actualSize = new FileInfo(actualFile).Length;
+
+        Assert.That(actualSize, Is.EqualTo(expectedSize));
+
+        var expectedData = File.ReadAllBytes(expectedFile);
+        var actualData = File.ReadAllBytes(actualFile);
+        Assert.That(actualData, Is.EqualTo(expectedData));
+    }
+
+    /// <summary>
+    /// to initialize test directory.
+    /// </summary>
+    [SetUp]
+    public void Setup()
+    {
+        this.testDirectory = Path.Combine(Path.GetTempPath(), "LzwTest_" + Guid.NewGuid());
+        Directory.CreateDirectory(this.testDirectory);
+    }
+
+    /// <summary>
+    /// to delete temporary directory.
+    /// </summary>
+    [TearDown]
+    public void TearDown()
+    {
+        if (Directory.Exists(this.testDirectory))
+        {
+            Directory.Delete(this.testDirectory, true);
         }
-
-        var codes = LzwCompress.Encode(testData);
-
-        Assert.That(codes, Is.EqualTo(expectedResult));
     }
 
     /// <summary>
-    /// test for correct encoding array of repeating bytes.
+    /// to create new file.
     /// </summary>
-    [Test]
-    public void LzwCompress_Encode_ArrayOfRepeatingBytes()
+    /// <param name="data">data to write in file.</param>
+    /// <param name="fileName">file name.</param>
+    /// <returns>filepath.</returns>
+    protected string CreateTestFile(byte[] data, string fileName = "test.txt")
     {
-        var testData = Encoding.ASCII.GetBytes("kkkkkkkkkrrrrrmmmmmm");
-        int[] expectedResult = [107, 256, 257, 257, 114, 260, 260, 109, 263, 264];
-        var codes = LzwCompress.Encode(testData);
-
-        Assert.That(codes, Is.EqualTo(expectedResult));
+        var filePath = Path.Combine(this.testDirectory, fileName);
+        File.WriteAllBytes(filePath, data);
+        return filePath;
     }
 
-    /// <summary>
-    /// test for correct byte sequence to int array.
-    /// </summary>
-    [Test]
-    public void LZWDecode_TransformByteSequenceToIntArray_IntArray()
-    {
-        byte[] testData = [236, 167, 3, 137, 153, 6, 251, 89, 161, 190, 1, 251, 251, 1, 190, 9, 233, 11, 235, 104];
-        int[] expectedResult = [54252, 101513, 11515, 24353, 32251, 1214, 1513, 13419];
 
-        var transformedData = LzwDecompress.ConvertByteStreamToIntValues(testData);
-
-        Assert.That(transformedData, Is.EqualTo(expectedResult));
-    }
-
-    /// <summary>
-    /// test for correct transform int array to byte sequence.
-    /// </summary>
-    [Test]
-    public void LzwCompress_TransformIntArrayToByteSequence_ArrayOfBytes()
-    {
-        int[] testData = [242342, 3252, 5262, 4621, 7532, 623, 87654, 4351];
-        byte[] expectedResult = [166, 229, 14, 180, 25, 142, 41, 141, 36, 236, 58, 239, 4, 230, 172, 5, 255, 33];
-
-        var transformedData = LzwCompress.ConvertIntArrayToByteStream(testData);
-
-        Assert.That(transformedData, Is.EqualTo(expectedResult));
-    }
 }

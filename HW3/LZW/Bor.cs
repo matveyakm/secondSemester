@@ -12,25 +12,20 @@ public class Bor
     private readonly TrieNode root = new();
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="Bor"/> class.
+    /// </summary>
+    public Bor()
+    {
+        for (var i = 0; i < 256; ++i)
+        {
+            this.Add([(byte)i], i);
+        }
+    }
+
+    /// <summary>
     /// Gets or sets amount of added words in trie.
     /// </summary>
     public int WordCount { get; set; }
-
-    /// <summary>
-    /// filling trie of bytes.
-    /// </summary>
-    /// <returns>trie.</returns>
-    public static Bor Init()
-    {
-        Bor newBor = new();
-
-        for (var i = 0; i < 256; ++i)
-        {
-            newBor.Add([(byte)i], i);
-        }
-
-        return newBor;
-    }
 
     /// <summary>
     /// add new word in trie.
@@ -71,17 +66,17 @@ public class Bor
     }
 
     /// <summary>
-    /// check is trie contains element.
+    /// Check if trie contains element.
     /// </summary>
     /// <param name="word">element to check.</param>
-    /// <returns>-1 if trie doesn't contains element, element's code if element in trie.</returns>
+    /// <returns>-1 if trie doesn't contain element, element's code if element is in trie.</returns>
     public int Contains(List<byte> word)
     {
-        const int trieDoesNotContainsElement = -1;
+        const int trieDoesNotContainElement = -1;
 
         if (word.Count == 0)
         {
-            return trieDoesNotContainsElement;
+            return trieDoesNotContainElement;
         }
 
         var currentNode = this.root;
@@ -90,7 +85,7 @@ public class Bor
         {
             if (!currentNode.Children.TryGetValue(symbol, out var value))
             {
-                return trieDoesNotContainsElement;
+                return trieDoesNotContainElement;
             }
 
             currentNode = value;

@@ -32,5 +32,10 @@
         <AdditionalFiles Include="stylecop.json" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="TestFiles\SmallFileToCompress.txt" />
+      <None Remove="TestFiles\SmallFileToCompress.txt.zipped" />
+    </ItemGroup>
+
 
 </Project>
