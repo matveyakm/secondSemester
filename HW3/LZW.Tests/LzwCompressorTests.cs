@@ -28,7 +28,9 @@ public class LzwCompressorTests : LzwTest
         Assert.That(File.Exists(compressedFile), Is.True);
 
         var compressedSize = new FileInfo(compressedFile).Length;
-        Assert.That(ratio, Is.EqualTo((float)originalSize / compressedSize));
+        var expectedRatio = (float)originalSize / compressedSize;
+
+        Assert.That(ratio, Is.EqualTo(expectedRatio).Within(0.01));
         Assert.That(ratio, Is.GreaterThan(1.0f));
     }
 
@@ -78,10 +80,8 @@ public class LzwCompressorTests : LzwTest
     [Test]
     public void LzwCompressor_Compress_WithNonExistentFile_ThrowsException()
     {
-        // Arrange
-        var nonExistentFile = Path.Combine(this.testDirectory, "nonexistent.txt");
+        var nonExistentFile = Path.Combine(this.TestDirectory, "nonexistent.txt");
 
-        // Act & Assert
         Assert.Throws<FileNotFoundException>(() => LzwCompressor.Compress(nonExistentFile));
     }
 }

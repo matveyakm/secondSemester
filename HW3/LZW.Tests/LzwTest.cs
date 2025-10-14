@@ -16,7 +16,34 @@ public class LzwTest
     /// <summary>
     /// directory with test file.
     /// </summary>
-    protected string testDirectory;
+    private string testDirectory;
+
+    /// <summary>
+    /// Gets test directory.
+    /// </summary>
+    protected string TestDirectory => this.testDirectory;
+
+    /// <summary>
+    /// to initialize test directory.
+    /// </summary>
+    [SetUp]
+    public void Setup()
+    {
+        this.testDirectory = Path.Combine(Path.GetTempPath(), "LzwTest_" + Guid.NewGuid());
+        Directory.CreateDirectory(this.testDirectory);
+    }
+
+    /// <summary>
+    /// to delete temporary directory.
+    /// </summary>
+    [TearDown]
+    public void TearDown()
+    {
+        if (Directory.Exists(this.testDirectory))
+        {
+            Directory.Delete(this.testDirectory, true);
+        }
+    }
 
     /// <summary>
     /// Assert file are equal.
@@ -42,28 +69,6 @@ public class LzwTest
     }
 
     /// <summary>
-    /// to initialize test directory.
-    /// </summary>
-    [SetUp]
-    public void Setup()
-    {
-        this.testDirectory = Path.Combine(Path.GetTempPath(), "LzwTest_" + Guid.NewGuid());
-        Directory.CreateDirectory(this.testDirectory);
-    }
-
-    /// <summary>
-    /// to delete temporary directory.
-    /// </summary>
-    [TearDown]
-    public void TearDown()
-    {
-        if (Directory.Exists(this.testDirectory))
-        {
-            Directory.Delete(this.testDirectory, true);
-        }
-    }
-
-    /// <summary>
     /// to create new file.
     /// </summary>
     /// <param name="data">data to write in file.</param>
@@ -75,6 +80,4 @@ public class LzwTest
         File.WriteAllBytes(filePath, data);
         return filePath;
     }
-
-
 }

@@ -79,10 +79,8 @@ public class LzwDecompressorTests : LzwTest
     [Test]
     public void Decompress_NonExistentFile_ThrowsFileNotFoundException()
     {
-        // Arrange
-        var nonExistentFile = Path.Combine(this.testDirectory, "nonexistent.zipped");
+        var nonExistentFile = Path.Combine(this.TestDirectory, "nonexistent.zipped");
 
-        // Act & Assert
         Assert.Throws<FileNotFoundException>(() => LzwDecompressor.Decompress(nonExistentFile));
     }
 }
