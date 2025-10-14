@@ -4,9 +4,6 @@
 
 namespace LZW.Tests;
 
-using System.Text;
-using LZW;
-
 /// <summary>
 /// settings for lzw tests.
 /// </summary>
