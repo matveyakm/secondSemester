@@ -1,45 +1,48 @@
 name: Build and Test
+
 on: [push, pull_request]
 
 jobs:
-  build-ubuntu:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: '9.x'
-        
-    - name: Build
-      run: |
-        for f in $(find . -name "*.sln"); do
-          if [[ "$f" != *"CalculatorOnForms2"* ]]; then
-            dotnet build "$f"
-          fi
-        done
-
-    - name: Run tests
-      run: |
-        for f in $(find . -name "*.sln"); do
-          if [[ "$f" != *"CalculatorOnForms2"* ]]; then
-            dotnet test "$f"
-          fi
-        done
-
   build-windows:
     runs-on: windows-latest
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: '9.x'
+      - uses: actions/checkout@v4
 
-    - name: Build and Test
-      shell: pwsh
-      run: |
-        Get-ChildItem -Recurse -Filter *.sln | ForEach-Object {
-          dotnet build $_.FullName
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          dotnet test $_.FullName --no-build
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-        }
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1.3
+
+      - name: Setup NuGet
+        uses: NuGet/setup-nuget@v1
+
+      - name: Restore NuGet Packages
+        run: nuget restore HW8/WpfCalculator/WpfCalculator.sln
+
+      - name: Build with MSBuild
+        run: |
+          msbuild HW8/WpfCalculator/WpfCalculator.sln ^
+            /p:Configuration=Release ^
+            /p:Platform="Any CPU" ^
+            /p:WarningLevel=4
+
+      - name: Run xUnit Tests with VSTest
+        run: |
+          $testDll = "HW8/WpfCalculatorTest/bin/Release/WpfCalculatorTest.dll"
+          & "C:\Program Files\dotnet\dotnet.exe" vstest "$testDll" --Parallel
+
+  build-ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.x'
+
+      - name: Build and Test SDK-style projects (skip HW8)
+        run: |
+          find . -name "*.sln" ! -path "./HW8/*" ! -name "*CalculatorOnForms2*" | while read sln; do
+            echo "Building SDK project: $sln"
+            dotnet build "$sln" --configuration Release
+            dotnet test "$sln" --no-build --configuration Release
+          done
