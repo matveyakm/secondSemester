@@ -7,7 +7,6 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{7B9B659A-B74A-4CCF-9574-2DD215004F4E}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <StartupObject>WpfCalculator.App</StartupObject>
     <RootNamespace>WpfCalculatorTest</RootNamespace>
     <AssemblyName>WpfCalculatorTest</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
