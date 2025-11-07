@@ -2,12 +2,12 @@
 // Copyright (c) matveyakm. All rights reserved.
 // </copyright>
 
+using Xunit;
+using WpfCalculator;
+
 namespace WpfCalculatorTest
 {
-    using Xunit;
-    using WpfCalculator;
-    
-    class TokenazerTest
+    public class TokenazerTest
     {
 
         public TokenazerTest()
