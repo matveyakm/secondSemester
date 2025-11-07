@@ -18,16 +18,20 @@ jobs:
         run: nuget restore HW8/WpfCalculator/WpfCalculator.sln
 
       - name: Build with MSBuild
+        shell: pwsh
         run: |
-          msbuild HW8/WpfCalculator/WpfCalculator.sln ^
-            /p:Configuration=Release ^
-            /p:Platform="Any CPU" ^
+          msbuild "HW8/WpfCalculator/WpfCalculator.sln" `
+            /p:Configuration=Release `
+            /p:Platform="Any CPU" `
             /p:WarningLevel=4
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
       - name: Run xUnit Tests with VSTest
+        shell: pwsh
         run: |
           $testDll = "HW8/WpfCalculatorTest/bin/Release/WpfCalculatorTest.dll"
           & "C:\Program Files\dotnet\dotnet.exe" vstest "$testDll" --Parallel
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
   build-ubuntu:
     runs-on: ubuntu-latest
@@ -39,7 +43,7 @@ jobs:
         with:
           dotnet-version: '9.x'
 
-      - name: Build and Test SDK-style projects (skip HW8)
+      - name: Build and Test SDK‑style projects (skip HW8)
         run: |
           find . -name "*.sln" ! -path "./HW8/*" ! -name "*CalculatorOnForms2*" | while read sln; do
             echo "Building SDK project: $sln"
