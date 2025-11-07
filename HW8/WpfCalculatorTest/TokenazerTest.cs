@@ -4,7 +4,9 @@
 
 namespace WpfCalculatorTest
 {
-
+    using Xunit;
+    using WpfCalculator;
+    
     class TokenazerTest
     {
 
