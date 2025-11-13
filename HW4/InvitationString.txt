@@ -1,0 +1,12 @@
+get_dir_info() {
+  if [ -d .git ] || git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    modified=$(git diff --name-only | wc -l | tr -d ' ')
+    printf " [\033[31mGit: %s changes\033[0m]" "$modified"
+  else
+    space_left=$(df -h . | awk 'FNR == 2 {print $4}')
+    items_count=$(find . -maxdepth 1 -type f | wc -l)
+    printf " [\033[32mFree: %s\033[0m | \033[34mFiles: %s\033[0m]" "$space_left" "$items_count"
+  fi
+}
+
+export PS1='\u@\h:\w$(get_dir_info)\$ '
