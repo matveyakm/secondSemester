@@ -109,7 +109,7 @@ namespace PairGame
             {
                 for (int j = 0; j < this.n; j++)
                 {
-                    Button btn = new Button
+                    var btn = new Button
                     {
                         Width = buttonSize,
                         Height = buttonSize,
