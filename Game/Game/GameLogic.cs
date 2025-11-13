@@ -69,7 +69,7 @@ namespace PairGame
         /// </summary>
         private void InitializeValues()
         {
-            List<int> numbers = new List<int>();
+            List<int> numbers = new();
             int totalPairs = this.TotalPairs;
             for (int i = 0; i < totalPairs; i++)
             {
