@@ -62,10 +62,7 @@ namespace PairGame
         /// <param name="col2">Second column.</param>
         /// <returns>True if values match and positions are different.</returns>
         public bool IsPair(int row1, int col1, int row2, int col2)
-        {
-            return this.values[row1, col1] == this.values[row2, col2]
-                && (row1 != row2 || col1 != col2);
-        }
+            => this.values[row1, col1] == this.values[row2, col2] && (row1 != row2 || col1 != col2);
 
         /// <summary>
         /// Initializes and shuffles the values grid.
