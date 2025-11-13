@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Blend for Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.202
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfCalculator", "WpfCalculator.csproj", "{1F776260-4A8D-4D3C-B030-7E7423136932}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfCalculatorTest", "..\WpfCalculatorTest\WpfCalculatorTest.csproj", "{7B9B659A-B74A-4CCF-9574-2DD215004F4E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1F776260-4A8D-4D3C-B030-7E7423136932} = {1F776260-4A8D-4D3C-B030-7E7423136932}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1F776260-4A8D-4D3C-B030-7E7423136932}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F776260-4A8D-4D3C-B030-7E7423136932}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F776260-4A8D-4D3C-B030-7E7423136932}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F776260-4A8D-4D3C-B030-7E7423136932}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B9B659A-B74A-4CCF-9574-2DD215004F4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B9B659A-B74A-4CCF-9574-2DD215004F4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B9B659A-B74A-4CCF-9574-2DD215004F4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B9B659A-B74A-4CCF-9574-2DD215004F4E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8CB1A812-FE09-4220-8A06-738BF43600ED}
+	EndGlobalSection
+EndGlobal
