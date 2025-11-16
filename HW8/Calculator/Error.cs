@@ -2,21 +2,22 @@
 // Copyright (c) matveyakm. All rights reserved.
 // </copyright>
 
-namespace WpfCalculator
+namespace Calculator
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-
     /// <summary>
     /// <see cref="Error"/>.
     /// </summary>
     public class Error
     {
+        /// <summary>
+        /// Error indicator
+        /// </summary>
+        private readonly bool isError;
+
+        /// <summary>
+        /// Error message
+        /// </summary>
         private string message;
-        private bool isError;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Error"/> class.
@@ -28,8 +29,8 @@ namespace WpfCalculator
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Error"/> class.
-        /// <param name="message"></param>
         /// </summary>
+        /// <param name="message"> Error message </param>
         public Error(string message)
         {
             this.message = message;
@@ -37,9 +38,9 @@ namespace WpfCalculator
         }
 
         /// <summary>
-        /// <see cref="GetMessage"/>.
+        /// <see cref="GetMessage"> Return error message </see>
         /// </summary>
-        /// <returns>string.</returns>
+        /// <returns>return message of error</returns>
         public string GetMessage()
         {
             return this.message;
@@ -48,7 +49,7 @@ namespace WpfCalculator
         /// <summary>
         /// <see cref="GetStatus"/>.
         /// </summary>
-        /// <returns>bool.</returns>
+        /// <returns>return error indicator</returns>
         public bool GetStatus()
         {
             return this.isError;

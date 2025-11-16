@@ -2,7 +2,7 @@
 // Copyright (c) matveyakm. All rights reserved.
 // </copyright>
 
-namespace WpfCalculator
+namespace Calculator
 {
     using System;
     using System.Collections.Generic;
@@ -52,8 +52,8 @@ namespace WpfCalculator
 
         /// <summary>
         /// <see cref="AddSymbol"/>.
-        /// <param name="symbol">char</param>
         /// </summary>
+        /// <param name="symbol">symbol for processing</param>
         public void AddSymbol(char symbol)
         {
             string validOperators = "+-*/^";
@@ -181,7 +181,7 @@ namespace WpfCalculator
         /// <summary>
         /// <see cref="GetResult"/>.
         /// </summary>
-        /// <returns>string.</returns>
+        /// <returns>Return result processing</returns>
         public string GetResult()
         {
             if (this.error.GetStatus())
@@ -199,14 +199,21 @@ namespace WpfCalculator
             return res + this.buffer;
         }
 
+        /// <summary>
+        /// Token processing
+        /// </summary>
+        /// <param name="symbols">symbol for token</param>
         private void Tokenize(string symbols)
         {
             if (this.isOperator)
             {
-                    this.tokens.Add(new Token(symbols, Token.Type.OPERATOR));
+                this.tokens.Add(new Token(symbols, Token.Type.OPERATOR));
             }
         }
 
+        /// <summary>
+        /// Calculate the math operations +,-,*,/,^
+        /// </summary>
         private void Culculate()
         {
             double res = 0f;
@@ -244,6 +251,12 @@ namespace WpfCalculator
             }
         }
 
+        /// <summary>
+        /// Division processing
+        /// </summary>
+        /// <param name="x">dividend of division</param>
+        /// <param name="y">divider of division</param>
+        /// <returns>return result of division</returns>
         private double Division(double x, double y)
         {
             double z = 0f;

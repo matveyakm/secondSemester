@@ -1,27 +1,28 @@
-﻿// <copyright file="TokenazerTest.cs" company="matveyakm">
+// <copyright file="CalculatorTest.cs" company="matveyakm">
 // Copyright (c) matveyakm. All rights reserved.
 // </copyright>
 
-using Xunit;
-using WpfCalculator;
-
-namespace WpfCalculatorTest
+namespace Calculator.Tests
 {
-    public class TokenazerTest
+    using NUnit.Framework;
+
+    /// <summary>
+    /// Main class for tests of calculator
+    /// </summary>
+    [TestFixture]
+    public class CalculatorTest
     {
-
-        public TokenazerTest()
-        {
-        }
-
-        [Fact]
+        /// <summary>
+        /// Execute scripts
+        /// </summary>
+        [Test]
         public void Add_PositiveNumbers_ReturnsExpectedResult()
         {
             string result = string.Empty;
             string expectedResult = string.Empty;
             bool isEqual;
 
-            Tokenazer tokenazer = new WpfCalculator.Tokenazer();
+            Tokenazer tokenazer = new Calculator.Tokenazer();
             tokenazer.AddSymbol('4');
             tokenazer.AddSymbol('+');
             tokenazer.AddSymbol('6');
@@ -29,9 +30,9 @@ namespace WpfCalculatorTest
             result = tokenazer.GetResult();
             expectedResult = "10+";
             isEqual = expectedResult.Equals(result);
-            Assert.True(isEqual, "Fail : 4+6+ should be 10+");
+            Assert.IsTrue(isEqual, "Fail : 4+6+ should be 10+");
 
-            tokenazer = new WpfCalculator.Tokenazer();
+            tokenazer = new Calculator.Tokenazer();
             tokenazer.AddSymbol('4');
             tokenazer.AddSymbol('+');
             tokenazer.AddSymbol('6');
@@ -39,9 +40,9 @@ namespace WpfCalculatorTest
             result = tokenazer.GetResult();
             expectedResult = "10";
             isEqual = expectedResult.Equals(result);
-            Assert.True(isEqual, "Fail : 4+6= should be 10");
+            Assert.IsTrue(isEqual, "Fail : 4+6= should be 10");
 
-            tokenazer = new WpfCalculator.Tokenazer();
+            tokenazer = new Calculator.Tokenazer();
             tokenazer.AddSymbol('4');
             tokenazer.AddSymbol('*');
             tokenazer.AddSymbol('6');
@@ -49,9 +50,9 @@ namespace WpfCalculatorTest
             result = tokenazer.GetResult();
             expectedResult = "24*";
             isEqual = expectedResult.Equals(result);
-            Assert.True(isEqual, "Fail : 4*6* should be 24*");
+            Assert.IsTrue(isEqual, "Fail : 4*6* should be 24*");
 
-            tokenazer = new WpfCalculator.Tokenazer();
+            tokenazer = new Calculator.Tokenazer();
             tokenazer.AddSymbol('1');
             tokenazer.AddSymbol('0');
             tokenazer.AddSymbol('-');
@@ -60,9 +61,9 @@ namespace WpfCalculatorTest
             result = tokenazer.GetResult();
             expectedResult = "4-";
             isEqual = expectedResult.Equals(result);
-            Assert.True(isEqual, "Fail : 10-6- should be 4-");
+            Assert.IsTrue(isEqual, "Fail : 10-6- should be 4-");
 
-            tokenazer = new WpfCalculator.Tokenazer();
+            tokenazer = new Calculator.Tokenazer();
             tokenazer.AddSymbol('1');
             tokenazer.AddSymbol('0');
             tokenazer.AddSymbol('-');
@@ -71,9 +72,9 @@ namespace WpfCalculatorTest
             result = tokenazer.GetResult();
             expectedResult = "4";
             isEqual = expectedResult.Equals(result);
-            Assert.True(isEqual, "Fail : 4-6= should be 4");
+            Assert.IsTrue(isEqual, "Fail : 4-6= should be 4");
 
-            tokenazer = new WpfCalculator.Tokenazer();
+            tokenazer = new Calculator.Tokenazer();
             tokenazer.AddSymbol('4');
             tokenazer.AddSymbol('*');
             tokenazer.AddSymbol('6');
@@ -81,9 +82,9 @@ namespace WpfCalculatorTest
             result = tokenazer.GetResult();
             expectedResult = "24";
             isEqual = expectedResult.Equals(result);
-            Assert.True(isEqual, "Fail : 4*6= should be 24");
+            Assert.IsTrue(isEqual, "Fail : 4*6= should be 24");
 
-            tokenazer = new WpfCalculator.Tokenazer();
+            tokenazer = new Calculator.Tokenazer();
             tokenazer.AddSymbol('2');
             tokenazer.AddSymbol('4');
             tokenazer.AddSymbol('/');
@@ -92,9 +93,9 @@ namespace WpfCalculatorTest
             result = tokenazer.GetResult();
             expectedResult = "4/";
             isEqual = expectedResult.Equals(result);
-            Assert.True(isEqual, "Fail : 24/6/ should be 4/");
+            Assert.IsTrue(isEqual, "Fail : 24/6/ should be 4/");
 
-            tokenazer = new WpfCalculator.Tokenazer();
+            tokenazer = new Calculator.Tokenazer();
             tokenazer.AddSymbol('2');
             tokenazer.AddSymbol('4');
             tokenazer.AddSymbol('/');
@@ -103,9 +104,9 @@ namespace WpfCalculatorTest
             result = tokenazer.GetResult();
             expectedResult = "4";
             isEqual = expectedResult.Equals(result);
-            Assert.True(isEqual, "Fail : 4/6= should be 4");
+            Assert.IsTrue(isEqual, "Fail : 4/6= should be 4");
 
-            tokenazer = new WpfCalculator.Tokenazer();
+            tokenazer = new Calculator.Tokenazer();
             tokenazer.AddSymbol('4');
             tokenazer.AddSymbol('/');
             tokenazer.AddSymbol('0');
@@ -113,9 +114,9 @@ namespace WpfCalculatorTest
             result = tokenazer.GetResult();
             expectedResult = "Division by zero!";
             isEqual = expectedResult.Equals(result);
-            Assert.True(isEqual, "Fail : 4/0= should be 'Division by zero!'");
+            Assert.IsTrue(isEqual, "Fail : 4/0= should be 'Division by zero!'");
 
-            tokenazer = new WpfCalculator.Tokenazer();
+            tokenazer = new Calculator.Tokenazer();
             tokenazer.AddSymbol('5');
             tokenazer.AddSymbol('^');
             tokenazer.AddSymbol('2');
@@ -123,9 +124,9 @@ namespace WpfCalculatorTest
             result = tokenazer.GetResult();
             expectedResult = "25+";
             isEqual = expectedResult.Equals(result);
-            Assert.True(isEqual, "Fail : 5^2+ should be 25+");
+            Assert.IsTrue(isEqual, "Fail : 5^2+ should be 25+");
 
-            tokenazer = new WpfCalculator.Tokenazer();
+            tokenazer = new Calculator.Tokenazer();
             tokenazer.AddSymbol('5');
             tokenazer.AddSymbol('^');
             tokenazer.AddSymbol('2');
@@ -133,7 +134,7 @@ namespace WpfCalculatorTest
             result = tokenazer.GetResult();
             expectedResult = "25";
             isEqual = expectedResult.Equals(result);
-            Assert.True(isEqual, "Fail : 5^2= should be 25");
+            Assert.IsTrue(isEqual, "Fail : 5^2= should be 25");
         }
     }
 }
