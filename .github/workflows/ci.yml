@@ -15,21 +15,21 @@ jobs:
         uses: NuGet/setup-nuget@v1
 
       - name: Restore NuGet Packages
-        run: nuget restore HW8/WpfCalculator/WpfCalculator.sln
+        run: nuget restore Calculator.sln
 
       - name: Build with MSBuild
         shell: pwsh
         run: |
-          msbuild "HW8/WpfCalculator/WpfCalculator.sln" `
+          msbuild "Calculator.sln" `
             /p:Configuration=Release `
             /p:Platform="Any CPU" `
             /p:WarningLevel=4
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
-      - name: Run xUnit Tests with VSTest
+      - name: Run NUnit Tests with VSTest
         shell: pwsh
         run: |
-          $testDll = "HW8/WpfCalculatorTest/bin/Release/WpfCalculatorTest.dll"
+          $testDll = "CalculatorTests/bin/Release/netcoreapp2.1/Calculator.Tests.dll"
           & "C:\Program Files\dotnet\dotnet.exe" vstest "$testDll" --Parallel
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
@@ -43,7 +43,7 @@ jobs:
         with:
           dotnet-version: '9.x'
 
-      - name: Build and Test SDK‑style projects (skip HW8)
+      - name: Build and Test SDK-style projects (skip HW8)
         run: |
           find . -name "*.sln" ! -path "./HW8/*" ! -name "*CalculatorOnForms2*" | while read sln; do
             echo "Building SDK project: $sln"
