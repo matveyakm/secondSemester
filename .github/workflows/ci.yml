@@ -15,10 +15,12 @@ jobs:
         uses: NuGet/setup-nuget@v1
 
       - name: Restore NuGet Packages
+        working-directory: HW8
         run: nuget restore Calculator.sln
 
       - name: Build with MSBuild
         shell: pwsh
+        working-directory: HW8
         run: |
           msbuild "Calculator.sln" `
             /p:Configuration=Release `
@@ -26,11 +28,12 @@ jobs:
             /p:WarningLevel=4
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
-      - name: Run NUnit Tests with VSTest
+      - name: Run NUnit Tests
         shell: pwsh
+        working-directory: HW8
         run: |
           $testDll = "CalculatorTests/bin/Release/netcoreapp2.1/Calculator.Tests.dll"
-          & "C:\Program Files\dotnet\dotnet.exe" vstest "$testDll" --Parallel
+          & "C:\Program Files\dotnet\dotnet.exe" vstest "$testDll"
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
   build-ubuntu:
