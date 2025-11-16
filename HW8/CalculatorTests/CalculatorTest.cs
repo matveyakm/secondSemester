@@ -30,7 +30,7 @@ namespace Calculator.Tests
             result = tokenazer.GetResult();
             expectedResult = "10+";
             isEqual = expectedResult.Equals(result);
-            Assert.IsTrue(isEqual, "Fail : 4+6+ should be 10+");
+            Assert.That(isEqual, "Fail : 4+6+ should be 10+");
 
             tokenazer = new Calculator.Tokenazer();
             tokenazer.AddSymbol('4');
@@ -40,7 +40,7 @@ namespace Calculator.Tests
             result = tokenazer.GetResult();
             expectedResult = "10";
             isEqual = expectedResult.Equals(result);
-            Assert.IsTrue(isEqual, "Fail : 4+6= should be 10");
+            Assert.That(isEqual, "Fail : 4+6= should be 10");
 
             tokenazer = new Calculator.Tokenazer();
             tokenazer.AddSymbol('4');
@@ -50,7 +50,7 @@ namespace Calculator.Tests
             result = tokenazer.GetResult();
             expectedResult = "24*";
             isEqual = expectedResult.Equals(result);
-            Assert.IsTrue(isEqual, "Fail : 4*6* should be 24*");
+            Assert.That(isEqual, "Fail : 4*6* should be 24*");
 
             tokenazer = new Calculator.Tokenazer();
             tokenazer.AddSymbol('1');
@@ -61,7 +61,7 @@ namespace Calculator.Tests
             result = tokenazer.GetResult();
             expectedResult = "4-";
             isEqual = expectedResult.Equals(result);
-            Assert.IsTrue(isEqual, "Fail : 10-6- should be 4-");
+            Assert.That(isEqual, "Fail : 10-6- should be 4-");
 
             tokenazer = new Calculator.Tokenazer();
             tokenazer.AddSymbol('1');
@@ -72,7 +72,7 @@ namespace Calculator.Tests
             result = tokenazer.GetResult();
             expectedResult = "4";
             isEqual = expectedResult.Equals(result);
-            Assert.IsTrue(isEqual, "Fail : 4-6= should be 4");
+            Assert.That(isEqual, "Fail : 4-6= should be 4");
 
             tokenazer = new Calculator.Tokenazer();
             tokenazer.AddSymbol('4');
@@ -82,7 +82,7 @@ namespace Calculator.Tests
             result = tokenazer.GetResult();
             expectedResult = "24";
             isEqual = expectedResult.Equals(result);
-            Assert.IsTrue(isEqual, "Fail : 4*6= should be 24");
+            Assert.That(isEqual, "Fail : 4*6= should be 24");
 
             tokenazer = new Calculator.Tokenazer();
             tokenazer.AddSymbol('2');
@@ -93,7 +93,7 @@ namespace Calculator.Tests
             result = tokenazer.GetResult();
             expectedResult = "4/";
             isEqual = expectedResult.Equals(result);
-            Assert.IsTrue(isEqual, "Fail : 24/6/ should be 4/");
+            Assert.That(isEqual, "Fail : 24/6/ should be 4/");
 
             tokenazer = new Calculator.Tokenazer();
             tokenazer.AddSymbol('2');
@@ -104,7 +104,7 @@ namespace Calculator.Tests
             result = tokenazer.GetResult();
             expectedResult = "4";
             isEqual = expectedResult.Equals(result);
-            Assert.IsTrue(isEqual, "Fail : 4/6= should be 4");
+            Assert.That(isEqual, "Fail : 4/6= should be 4");
 
             tokenazer = new Calculator.Tokenazer();
             tokenazer.AddSymbol('4');
@@ -114,7 +114,7 @@ namespace Calculator.Tests
             result = tokenazer.GetResult();
             expectedResult = "Division by zero!";
             isEqual = expectedResult.Equals(result);
-            Assert.IsTrue(isEqual, "Fail : 4/0= should be 'Division by zero!'");
+            Assert.That(isEqual, "Fail : 4/0= should be 'Division by zero!'");
 
             tokenazer = new Calculator.Tokenazer();
             tokenazer.AddSymbol('5');
@@ -124,7 +124,7 @@ namespace Calculator.Tests
             result = tokenazer.GetResult();
             expectedResult = "25+";
             isEqual = expectedResult.Equals(result);
-            Assert.IsTrue(isEqual, "Fail : 5^2+ should be 25+");
+            Assert.That(isEqual, "Fail : 5^2+ should be 25+");
 
             tokenazer = new Calculator.Tokenazer();
             tokenazer.AddSymbol('5');
@@ -134,7 +134,7 @@ namespace Calculator.Tests
             result = tokenazer.GetResult();
             expectedResult = "25";
             isEqual = expectedResult.Equals(result);
-            Assert.IsTrue(isEqual, "Fail : 5^2= should be 25");
+            Assert.That(isEqual, "Fail : 5^2= should be 25");
         }
     }
 }
