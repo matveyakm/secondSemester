@@ -17,7 +17,7 @@ namespace Calculator
         /// <summary>
         /// Error message
         /// </summary>
-        private string message;
+        private string message = string.Empty;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Error"/> class.

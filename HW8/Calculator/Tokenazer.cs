@@ -15,7 +15,7 @@ namespace Calculator
     {
         private List<Token> tokens;
         private State state;
-        private string buffer;
+        private string buffer = string.Empty;
         private Token.Type bufferTokenType;
         private Error error;
         private bool isPoint;
