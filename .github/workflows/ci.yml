@@ -3,53 +3,32 @@ name: Build and Test
 on: [push, pull_request]
 
 jobs:
-  build-windows:
+  build:
     runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: HW8
+
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup MSBuild
-        uses: microsoft/setup-msbuild@v1.3
-
-      - name: Setup NuGet
-        uses: NuGet/setup-nuget@v1
-
-      - name: Restore NuGet Packages
-        working-directory: HW8
-        run: nuget restore Calculator.sln
-
-      - name: Build with MSBuild
-        shell: pwsh
-        working-directory: HW8
-        run: |
-          msbuild "Calculator.sln" `
-            /p:Configuration=Release `
-            /p:Platform="Any CPU" `
-            /p:WarningLevel=4
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-
-      - name: Run NUnit Tests
-        shell: pwsh
-        working-directory: HW8
-        run: |
-          $testDll = "CalculatorTests/bin/Release/netcoreapp2.1/Calculator.Tests.dll"
-          & "C:\Program Files\dotnet\dotnet.exe" vstest "$testDll"
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-
-  build-ubuntu:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Setup .NET
+      - name: Setup .NET 9.0
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '9.x'
+          dotnet-version: '9.0.x'
 
-      - name: Build and Test SDK-style projects (skip HW8)
-        run: |
-          find . -name "*.sln" ! -path "./HW8/*" ! -name "*CalculatorOnForms2*" | while read sln; do
-            echo "Building SDK project: $sln"
-            dotnet build "$sln" --configuration Release
-            dotnet test "$sln" --no-build --configuration Release
-          done
+      - name: Restore
+        run: dotnet restore Calculator.sln
+
+      - name: Build
+        run: dotnet build Calculator.sln --configuration Release --no-restore
+
+      - name: Test
+        run: dotnet test Calculator.sln --no-build --configuration Release --logger trx --collect:"XPlat Code Coverage"
+
+      - name: Upload Test Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: HW8/**/TestResults/
