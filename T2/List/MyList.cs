@@ -24,11 +24,7 @@ public class MyList<T> : IEnumerable<T>
     /// Initializes a new instance of the <see cref="MyList{T}"/> class that is empty
     /// and has the default initial capacity.
     /// </summary>
-    public MyList()
-    {
-        this.items = Array.Empty<T>();
-        this.count = 0;
-    }
+    public MyList() => this.items = Array.Empty<T>();
 
     /// <summary>
     /// Initializes a new instance of the <see cref="MyList{T}"/> class that is empty

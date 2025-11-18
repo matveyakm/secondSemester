@@ -25,10 +25,7 @@ public static class ListUtils
     /// <exception cref="ArgumentNullException"><paramref name="list"/> is <c>null</c>.</exception>
     public static void Sort<T>(this MyList<T> list, IComparer<T>? comparer = null)
     {
-        if (list is null)
-        {
-            throw new ArgumentNullException(nameof(list));
-        }
+        ArgumentNullException.ThrowIfNull(list);
 
         comparer ??= Comparer<T>.Default;
 
